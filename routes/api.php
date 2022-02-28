@@ -22,12 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
 Route::get('stock', [StockController::class, 'index']);
-//Route::get('faq', [\App\Http\Controllers\Client\FAQController::class, 'index']);
-//Route::get('faq-category', [\App\Http\Controllers\Client\FAQController::class, 'faqCategory']);
-////Route::get('page', [\App\Http\Controllers\Client\PageController::class, 'index']);
-//Route::get('page', [\App\Http\Controllers\Client\WebPageController::class, 'index']);
-//Route::get('page/{page}', [\App\Http\Controllers\Client\WebPageController::class, 'show']);
-//Route::get('blog', [\App\Http\Controllers\Client\WebPageBlogController::class, 'index']);
 
 Route::middleware(['checkToken', 'auth:api'])->group(function () {
     //
