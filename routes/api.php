@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MealController;
+use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Client\StockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

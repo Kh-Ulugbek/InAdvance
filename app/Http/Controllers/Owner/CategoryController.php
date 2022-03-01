@@ -47,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::with('dacha')->findOrFail($id);
+        $categories = Category::query()->findOrFail($id);
         try {
             return response()->json([
                 'data' => $categories

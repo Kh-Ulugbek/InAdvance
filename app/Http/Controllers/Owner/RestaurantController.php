@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\RestaurantRequest;
 use App\Models\Restaurant;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +15,31 @@ class RestaurantController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request): JsonResponse
     {
-        //
+        $per_page = 10;
+        if (isset($request->per_page)) {
+            $per_page = (int) $request->per_page;
+        }
+        $restaurants = Restaurant::query()->orderByDesc('id')
+            ->when(isset($request->name), function ($q) use ($request) {
+                return $q->where('name_uz', 'like', '%' . $request->name . '%')
+                    ->orWhere('name_ru', 'like', '%' . $request->name . '%')
+                    ->orWhere('name_en', 'like', '%' . $request->name . '%');
+            })
+            ->paginate($per_page);
+        try {
+            return response()->json([
+                'data' => $restaurants
+            ], 200);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => $exception,
+                'message' => 'Something went wrong'
+            ]);
+        }
     }
 
     /**
@@ -53,18 +74,30 @@ class RestaurantController extends Controller
         $restaurant->close_time = $request->close_time;
         $restaurant->bank_number = $request->bank_number;
         $restaurant->save();
-        return response()->json($restaurant);
+        return response()->json([
+            'data' => $restaurant
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
-        //
+        $categories = Restaurant::query()->findOrFail($id);
+        try {
+            return response()->json([
+                'data' => $categories
+            ], 200);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => $exception,
+                'message' => 'Something went wrong'
+            ]);
+        }
     }
 
     /**
@@ -102,7 +135,9 @@ class RestaurantController extends Controller
         $restaurant->close_time = $request->close_time;
         $restaurant->bank_number = $request->bank_number;
         $restaurant->save();
-        return response()->json($restaurant);
+        return response()->json([
+            'data' => $restaurant
+        ], 200);
     }
 
     /**

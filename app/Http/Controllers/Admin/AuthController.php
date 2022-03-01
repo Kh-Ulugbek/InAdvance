@@ -24,6 +24,10 @@ class AuthController extends Controller
         $data = $request->only('login', 'password');
 
         if (Auth::attempt(['login' => $data['login'], 'password' => $data['password']])) {
+            if (Auth::user()->role_id != User::ROLE_ADMIN) {
+                Auth::logout();
+                return redirect()->route('login');
+            }
             return redirect()->route('category.index');
         } else {
             return redirect()->back()->withErrors(['fail' => 'login or password invalid']);
