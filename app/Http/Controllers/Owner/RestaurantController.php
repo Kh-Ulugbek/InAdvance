@@ -40,7 +40,7 @@ class RestaurantController extends Controller
     public function store(RestaurantRequest $request)
     {
         $uploadFile = $request->file('image_path');
-        $path = 'restaurants/' . date('Y-m-d', time()) . '/' . $request->name;
+        $path = 'restaurants/' . date('Y-m-d', time());
         $fileName = $this->uploadFile($uploadFile, $path);
         $restaurant = new Restaurant();
         $restaurant->user_id = Auth::guard('api')->id();
