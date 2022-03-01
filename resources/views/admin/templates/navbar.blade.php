@@ -24,8 +24,8 @@
                 <span class="title">@lang('main.restaurants')</span>
             </a>
         </li>
-        <li class="{{ (request()->is('category*')) ? 'active' : '' }}" >
-            <a href="{{ route('category.index') }}">
+        <li class="{{ (request()->is('categories*')) ? 'active' : '' }}" >
+            <a href="{{ route('categories.index') }}">
                 <span class="icon"><ion-icon name="pricetags-outline"></ion-icon></span>
                 <span class="title">@lang('main.categories')</span>
             </a>

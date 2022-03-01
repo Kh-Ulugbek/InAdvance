@@ -13,16 +13,14 @@
 {{--            </div>--}}
         </div>
 
-        <!-- cards -->
-        {{--@include('admin.templates.cards')--}}
         <div class="details singleColumn">
             <!-- data list -->
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>@lang('main.categories')</h2>
-                    <a href="{{ route('category.create') }}" class="btn">@lang('main.add_new') +</a>
+                    <a href="{{ route('categories.create') }}" class="btn">@lang('main.add_new') +</a>
                 </div>
-                <form method="get" action="{{ route('category.index') }}" class="filter">
+                <form method="get" action="{{ route('categories.index') }}" class="filter">
                     <div class="filter__input">
                         <input placeholder="@lang('main.name')..." name="name" type="text"
                                @if(!empty(request()->get('name'))) value="{{ request()->get('name') }}"@endif >
@@ -54,7 +52,7 @@
                             </td>
                             <td>{{ $category->created_at }}</td>
                             <td>
-                                <a href="{{ route('category.edit', $category->id) }}">
+                                <a href="{{ route('categories.edit', $category->id) }}">
                                     <ion-icon name="pencil-outline"></ion-icon>
                                 </a>
 {{--                                <a href="{{ route('categoryDelete', $category->id) }}">--}}
@@ -72,7 +70,7 @@
                                         <ion-icon name="close-outline"></ion-icon>
                                     </a>
                                 </div>
-                                <form method="post" action="{{ route('category.destroy', $category->id) }}" class="modal__form">
+                                <form method="post" action="{{ route('categories.destroy', $category->id) }}" class="modal__form">
                                     @csrf
                                     @method('DELETE')
                                     <div class="delete">

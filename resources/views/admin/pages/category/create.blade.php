@@ -22,7 +22,7 @@
                     <h2>@lang('main.add_category')</h2>
                 </div>
                 <div class="form">
-                    <form method="post" action="{{ route('category.store') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('categories.store') }}" enctype="multipart/form-data">
                         @csrf
                         @include('admin.pages.category.form')
                     </form>

@@ -51,7 +51,7 @@ class CategoryController extends Controller
             $category->description_en = $request->description_en;
             $category->image_path = $file_path;
             $category->save();
-            return redirect()->route('category.index');
+            return redirect()->route('categories.index');
         } catch (\Exception $e) {
             return redirect()->back();
         }
@@ -97,7 +97,7 @@ class CategoryController extends Controller
                     'description_en' => $request->description_en,
                 ]);
             }
-            return redirect()->route('category.index');
+            return redirect()->route('categories.index');
         } catch (\Exception $e) {
             return redirect()->back();
         }

@@ -28,7 +28,7 @@ class AuthController extends Controller
                 Auth::logout();
                 return redirect()->route('login');
             }
-            return redirect()->route('category.index');
+            return redirect()->route('categories.index');
         } else {
             return redirect()->back()->withErrors(['fail' => 'login or password invalid']);
         }
