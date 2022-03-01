@@ -26,12 +26,14 @@ class RestaurantRequest extends FormRequest
     public function rules()
     {
         $image = 'required|mimes:jpg,jpeg,png';
+        $user_id = ['required', 'exists:App\Models\User,id'];
         if ($this->method() == 'PUT' or $this->method() == 'PATCH')
         {
             $image = 'mimes:jpg,jpeg,png';
+            $user_id = '';
         }
         return [
-            'user_id' => ['required', 'exists:App\Models\User,id'],
+            'user_id' => $user_id,
             'image' => $image,
             'name' => 'required|min:3|max:200',
             'phone' => 'required|numeric',

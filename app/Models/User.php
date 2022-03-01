@@ -49,4 +49,10 @@ class User extends Authenticatable
     public const ROLE_ADMIN = 1;
     public const ROLE_OWNER = 2;
     public const ROLE_CUSTOMER = 3;
+
+
+    public function restaurant(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Restaurant::class, 'user_id', 'id');
+    }
 }

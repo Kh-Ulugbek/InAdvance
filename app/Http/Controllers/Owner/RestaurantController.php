@@ -39,12 +39,12 @@ class RestaurantController extends Controller
      */
     public function store(RestaurantRequest $request)
     {
-        $uploadFile = $request->file('image');
+        $uploadFile = $request->file('image_path');
         $path = 'restaurants/' . date('Y-m-d', time()) . '/' . $request->name;
         $fileName = $this->uploadFile($uploadFile, $path);
         $restaurant = new Restaurant();
         $restaurant->user_id = Auth::guard('api')->id();
-        $restaurant->image = $fileName;
+        $restaurant->image_path = $fileName;
         $restaurant->name = $request->name;
         $restaurant->phone = $request->phone;
         $restaurant->map_ln = $request->map_ln;
@@ -88,11 +88,11 @@ class RestaurantController extends Controller
     public function update(RestaurantRequest $request, int $id)
     {
         $restaurant = Restaurant::query()->findOrFail($id);
-        if (!empty($request->file('image'))) {
-            $uploadFile = $request->file('image');
+        if (!empty($request->file('image_path'))) {
+            $uploadFile = $request->file('image_path');
             $path = 'restaurants/' . date('Y-m-d', time()) . '/' . $request->name;
             $fileName = $this->uploadFile($uploadFile, $path);
-            $restaurant->image = $fileName;
+            $restaurant->image_path = $fileName;
         }
         $restaurant->name = $request->name;
         $restaurant->phone = $request->phone;
@@ -103,7 +103,6 @@ class RestaurantController extends Controller
         $restaurant->bank_number = $request->bank_number;
         $restaurant->save();
         return response()->json($restaurant);
-
     }
 
     /**

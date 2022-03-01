@@ -1,0 +1,931 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+:root {
+    --blue: #00BB4B;
+    /*--blue: #5C5696;*/
+    --white: #fff;
+    --grey: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--blue);
+    border-left: 10px solid var(--blue);
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation.active {
+    width: 80px;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.navigation ul li:hover,
+.navigation ul li.active {
+    background: var(--white);
+}
+
+.navigation ul li:first-child {
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+
+.navigation ul li a {
+    position: relative;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.navigation ul li:hover a,
+.navigation ul li.active a {
+    color: var(--blue);
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75em;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+/* curve outside */
+
+.navigation ul li:hover a::before,
+.navigation ul li.active a::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--white);
+}
+
+.navigation ul li:hover a::after,
+.navigation ul li.active a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--white);
+    pointer-events: none;
+}
+
+/*main*/
+.main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--white);
+    transition: 0.5s;
+}
+
+.main.active {
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.toggle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+.search {
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+
+.search label {
+    position: relative;
+    width: 100%;
+}
+
+.search label input {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px 5px 35px;
+    outline: none;
+    border: 1px solid var(--black2);
+    font-size: 18px;
+}
+
+.search label ion-icon {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 1.2em;
+}
+
+.user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.user img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cardBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+}
+
+.cardBox .card {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardBox .card .numbers {
+    position: relative;
+    font-weight: 500;
+    font-size: 2.5em;
+    color: var(--blue);
+}
+
+.cardBox .card .cardName {
+    color: var(--black2);
+    font-size: 1.2em;
+    margin: 5px 0 0 0;
+}
+
+.cardBox .card .iconBox {
+    font-size: 3.5em;
+    color: var(--black2);
+}
+
+.cardBox .card:hover {
+    background: var(--blue);
+}
+
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBox {
+    color: var(--white);
+}
+
+.details {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 30px;
+    /*margin-top: 10px;*/
+}
+
+.details.singleColumn {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    /*margin-top: 10px;*/
+}
+
+.details .recentOrders {
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardHeader h2 {
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.btn {
+    position: relative;
+    padding: 5px 10px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    border-radius: 6px;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.details table thead td {
+    font-weight: 600;
+}
+
+.details .recentOrders table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details .recentOrders table tr:last-child {
+    border-bottom: none;
+}
+
+.details .recentOrders table tbody tr:hover {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.details .recentOrders table tr td {
+    padding: 10px;
+}
+
+
+.details .recentOrders table tr td:first-child {
+    text-align: start;
+}
+
+.details .recentOrders table tr td {
+    text-align: center;
+}
+
+.details .recentOrders table tr td:last-child {
+    text-align: end;
+}
+
+.imageColumn .imgBx {
+    padding: 0;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.details .recentOrders table tr td a {
+    font-size: 20px;
+}
+
+.details .recentOrders table tr:hover td a:first-child,
+.details .recentOrders table tr:hover td a:last-child {
+    color: var(--white);
+}
+
+.details .recentOrders table tr td a:first-child {
+    text-decoration: none;
+    padding-right: 20px;
+    color: var(--black2);
+    font-weight: bold;
+}
+
+.details .recentOrders table tr td a:last-child {
+    text-decoration: none;
+    color: #f00;
+}
+
+
+.status.delivered {
+    padding: 2px 4px;
+    background: #8de02c;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status.pending {
+    padding: 2px 4px;
+    background: #f9ca3f;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status.return {
+    padding: 2px 4px;
+    background: #f00;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status.inprogress {
+    padding: 2px 4px;
+    background: #1795ce;
+    color: var(--white);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.recentCustomers {
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    padding: 20px;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.imgBx {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recentCustomers table tr:hover {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.recentCustomers table tr td {
+    padding: 12px 10px;
+}
+
+.recentCustomers table tr td h4 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2em;
+}
+
+.recentCustomers table tr td h4 span {
+    font-size: 14px;
+    color: var(--black2);
+}
+
+.recentCustomers table tr:hover td h4 span {
+    color: var(--white);
+}
+
+.itemsCard {
+    position: relative;
+    min-height: 500px;
+    padding: 20px;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.form {
+    padding: 40px 0 0 0;
+    width: 60%;
+}
+
+.form__input {
+    margin: 15px 0;
+}
+
+.form__input label {
+    color: var(--black2);
+    font-size: 1.2em;
+    margin: 5px 0 0 0;
+    display: block;
+    padding: 0 0 0 5px;
+}
+
+.form__input input {
+    width: 70%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 5px 20px 5px 20px;
+    outline: none;
+    border: 1px solid var(--black2);
+    font-size: 18px;
+    margin: 10px 0 0 0;
+}
+
+.form__input select {
+    width: 70%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 5px 20px 5px 20px;
+    outline: none;
+    border: 1px solid var(--black2);
+    font-size: 18px;
+    margin: 10px 0 0 0;
+}
+
+.form__input textarea {
+    width: 70%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+}
+
+.form__input.fileInput {
+    display: flex;
+}
+
+.form__input.fileInput input {
+    display: none;
+}
+
+.form__input.fileInput label {
+    margin: 0;
+    font-size: 20px;
+    color: var(--black2);
+    border: 1px solid var(--black2);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.form__input.fileInput label ion-icon {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 1.1em;
+}
+
+.form__input.fileInput label span {
+    padding: 0 15px 0 30px;
+}
+
+.upload{
+    padding: 20px 0;
+}
+
+.uploadImage {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    /*margin-top: 20px;*/
+}
+
+.uploadImage img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form__btn {
+    width: 70%;
+    display: flex;
+    justify-content: end;
+    padding: 5px 0;
+}
+
+.form__btn button {
+    position: relative;
+    padding: 12px 25px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.pagination form {
+    height: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.pagination a.active {
+    background-color: var(--blue);
+    color: white;
+    border: 1px solid var(--blue);
+}
+
+.pagination__pageInput {
+    margin-right: 10px;
+    color: black;
+    float: left;
+    text-decoration: none;
+    transition: background-color .3s;
+    width: 40px;
+    height: 100%;
+    outline: none;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.pagination select {
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 60px;
+    font-size: 18px;
+}
+
+.pagination select option {
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.pagination__button {
+    float: left;
+    text-decoration: none;
+    transition: background-color .3s;
+    height: 100%;
+    font-size: 18px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+/*modal*/
+.modal-container {
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100vw;
+    transition: opacity 0.3s ease-out;
+    z-index: 1002;
+}
+
+.modal-container.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal__header {
+    display: flex;
+    position: relative;
+}
+
+.modal__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 24px
+}
+
+.modal {
+    background-color: #fff;
+    width: 600px;
+    max-width: 100%;
+    padding: 30px 50px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid red;
+}
+
+.delete {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 0 10px;
+}
+
+.modal__delete {
+    position: relative;
+    padding: 12px 35px 12px 20px;
+    background: red;
+    text-decoration: none;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.addButton {
+    position: relative;
+    padding: 5px 8px;
+    background: #8de02c;
+    text-decoration: none;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.removeButton {
+    position: relative;
+    padding: 0 8px;
+    background: red;
+    text-decoration: none;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 35px;
+}
+
+.inputRemove {
+    padding: 8px;
+    margin-left: 5px;
+
+}
+
+.delete button ion-icon {
+    position: absolute;
+    margin: 1px 6px;
+    font-size: 16px;
+}
+
+/*end modal*/
+
+.filter {
+    display: flex;
+    padding: 20px 0;
+}
+
+.filter__input input {
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 5px 20px 5px 35px;
+    outline: none;
+    border: 1px solid var(--black2);
+    font-size: 18px;
+}
+
+.filter__select select {
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 5px 20px 5px 35px;
+    outline: none;
+    border: 1px solid var(--black2);
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.filter__button {
+    height: 40px;
+    position: relative;
+    padding: 5px 8px 5px 28px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.filter__button ion-icon {
+    top: 12px;
+    left: 8px;
+    position: absolute;
+    font-size: 14px;
+}
+
+.checkboxInput{
+    display: flex;
+}
+
+.form__input .form__checkbox {
+    margin: 5px 0 0 0;
+    width: 7%;
+    height: 25px;
+}
+
+.validationError {
+    color: red;
+    display: block;
+    padding: 8px 0 8px 5px;
+    font-size: 14px;
+}
+
+@media (max-width: 991px) {
+    .navigation {
+        left: -300px;
+    }
+
+    .navigation.active {
+        width: 100%;
+        left: 0;
+    }
+
+    .main {
+        width: 100%;
+        left: 0;
+    }
+
+    .main.active {
+        left: 300px;
+    }
+
+    .cardBox {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    @media (max-width: 768px) {
+        .details {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .recentOrders {
+            overflow-x: auto;
+        }
+
+        .status.inprogress {
+            white-space: nowrap;
+        }
+
+        .form__input input {
+            width: 70%;
+            height: 40px;
+            border-radius: 10px;
+            padding: 5px 20px 5px 20px;
+            outline: none;
+            border: 1px solid var(--black2);
+            font-size: 18px;
+            margin: 10px 0 0 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cardBox {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .cardHeader h2 {
+            font-size: 20px;
+        }
+
+        .user {
+            min-width: 40px;
+        }
+
+        .navigation {
+            width: 100%;
+            left: -100%;
+            z-index: 1000;
+        }
+
+        .navigation.active {
+            width: 100%;
+            left: 0;
+        }
+
+        .toggle {
+            z-index: 1001;
+        }
+
+        .main.active .toggle {
+            position: fixed;
+            right: 0;
+            left: initial;
+            color: var(--white);
+        }
+
+        .form__input input {
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+            padding: 5px 20px 5px 20px;
+            outline: none;
+            border: 1px solid var(--black2);
+            font-size: 18px;
+            margin: 10px 0 0 0;
+        }
+    }
+}
