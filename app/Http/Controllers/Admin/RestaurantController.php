@@ -35,7 +35,7 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::query()->findOrFail($id);
         if (!empty($request->file('image_path'))) {
             $uploadFile = $request->file('image_path');
-            $path = 'restaurants/' . date('Y-m-d', time()) . '/' . $request->name;
+            $path = 'restaurants/' . date('Y-m-d', time());
             $fileName = $this->uploadFile($uploadFile, $path);
             $restaurant->image_path = $fileName;
         }
