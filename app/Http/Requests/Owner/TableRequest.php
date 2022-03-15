@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests\Owner;
 
-use App\Models\User;
-use App\Rules\ExistUserRestaurant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RestaurantRequest extends FormRequest
+class TableRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,18 +24,19 @@ class RestaurantRequest extends FormRequest
      */
     public function rules()
     {
-        $image = 'required|mimes:jpg,jpeg,png';
+        $restaurant_id = ['required', 'exists:App\Models\Restaurant,id'];
+        $index = '';
         if ($this->method() == 'PUT' or $this->method() == 'PATCH')
         {
-            $image = 'mimes:jpg,jpeg,png';
+            $restaurant_id = '';
+            $index = ['required', Rule::unique('tables', 'index')->ignore($this->table)];
         }
         return [
-            'image_path' => $image,
-            'name' => 'required|min:3|max:200',
-            'phone' => 'required|numeric',
-            'open_time' => 'required',
-            'close_time' => 'required',
-            'bank_number' => 'numeric',
+            'restaurant_id' => $restaurant_id,
+            'set_num' => 'required',
+            'price' => 'required',
+            'floor' => 'required',
+            'index' => $index,
         ];
     }
 }

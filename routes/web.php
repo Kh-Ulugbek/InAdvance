@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
-Route::get('/', function () {
-    return redirect()->route('categories.index');
-});
-Route::middleware('admin')->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('categories.index');
+    });
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 //    Route::get('/admin-panel', [MainController::class, 'index'])->name('adminPanel');
     Route::resource('/categories', CategoryController::class);

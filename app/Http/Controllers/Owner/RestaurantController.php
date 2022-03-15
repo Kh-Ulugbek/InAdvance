@@ -60,11 +60,14 @@ class RestaurantController extends Controller
      */
     public function store(RestaurantRequest $request)
     {
+        if (Restaurant::query()->where('user_id', Auth::id())->first()) {
+            return response()->json('user already has restaurant', 422);
+        }
         $uploadFile = $request->file('image_path');
         $path = 'restaurants/' . date('Y-m-d', time());
         $fileName = $this->uploadFile($uploadFile, $path);
         $restaurant = new Restaurant();
-        $restaurant->user_id = Auth::guard('api')->id();
+        $restaurant->user_id = Auth::id();
         $restaurant->image_path = $fileName;
         $restaurant->name = $request->name;
         $restaurant->phone = $request->phone;

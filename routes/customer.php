@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Client\FavouriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +17,8 @@ use \App\Http\Controllers\Admin\StockController;
 */
 
 Route::middleware(['checkToken', 'auth:api'])->group(function () {
-    Route::resource('stock', StockController::class)->middleware('scope:admin,moderator');
+    Route::middleware('scope:customer')->group(function () {
+        Route::resource('favourite', FavouriteController::class)->only('index', 'store');
+    });
 });
+
