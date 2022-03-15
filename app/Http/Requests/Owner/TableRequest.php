@@ -4,6 +4,8 @@ namespace App\Http\Requests\Owner;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class TableRequest extends FormRequest
 {
@@ -38,5 +40,13 @@ class TableRequest extends FormRequest
             'floor' => 'required',
             'index' => $index,
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors(),
+            'status' => true
+        ], 422));
     }
 }

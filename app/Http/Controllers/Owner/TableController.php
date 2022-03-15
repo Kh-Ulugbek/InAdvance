@@ -82,7 +82,7 @@ class TableController extends Controller
         $table->set_num = $request->set_num;
         $table->price = $request->price;
         $table->floor = $request->floor;
-        $table->index = $request->index ;
+        $table->index = $request->index;
         $table->save();
         return response()->json([
             'data' => $table
