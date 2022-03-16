@@ -22,6 +22,12 @@ class MealController extends Controller
                     ->orWhere('name_ru', 'like', '%' . $request->name . '%')
                     ->orWhere('name_en', 'like', '%' . $request->name . '%');
             })
+            ->when(isset($request->category_id), function ($q) use ($request) {
+                return $q->where('category_id', $request->category_id);
+            })
+            ->when(isset($request->restaurant_id), function ($q) use ($request) {
+                return $q->where('restaurant_id', $request->restaurant_id);
+            })
             ->orderByDesc('id')
             ->paginate($per_page);
         return response()->json([

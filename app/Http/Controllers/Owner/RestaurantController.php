@@ -43,16 +43,6 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param RestaurantRequest $request
@@ -90,10 +80,10 @@ class RestaurantController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $categories = Restaurant::query()->findOrFail($id);
+        $restaurant = Restaurant::query()->findOrFail($id);
         try {
             return response()->json([
-                'data' => $categories
+                'data' => $restaurant
             ], 200);
         } catch (\Exception $exception) {
             return response()->json([
@@ -101,17 +91,6 @@ class RestaurantController extends Controller
                 'message' => 'Something went wrong'
             ]);
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
