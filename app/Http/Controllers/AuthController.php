@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,8 @@ class AuthController extends Controller
             if ($user->role_id == User::ROLE_ADMIN) {
                 $success['token'] = $user->createToken('avior', ['admin'])->accessToken;
             } elseif ($user->role_id == User::ROLE_OWNER) {
+                $restaurant = Restaurant::query()->where('user_id', $user->id)->first();
+                $user['restaurant'] = $restaurant;
                 $success['token'] = $user->createToken('avior', ['owner'])->accessToken;
             } elseif ($user->role_id == User::ROLE_CUSTOMER) {
                 $success['token'] = $user->createToken('avior', ['customer'])->accessToken;
