@@ -56,9 +56,15 @@ class RestaurantController extends Controller
         $uploadFile = $request->file('image_path');
         $path = 'restaurants/' . date('Y-m-d', time());
         $fileName = $this->uploadFile($uploadFile, $path);
+        if (!empty($request->logo_path)) {
+            $file = $request->file('image_path');
+            $logo_path = 'restaurants/' . date('Y-m-d', time());
+            $logoName = $this->uploadFile($file, $logo_path);
+        }
         $restaurant = new Restaurant();
         $restaurant->user_id = Auth::id();
         $restaurant->image_path = $fileName;
+        $restaurant->logo_path = $logoName;
         $restaurant->name = $request->name;
         $restaurant->phone = $request->phone;
         $restaurant->map_ln = $request->map_ln;
@@ -105,9 +111,15 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::query()->findOrFail($id);
         if (!empty($request->file('image_path'))) {
             $uploadFile = $request->file('image_path');
-            $path = 'restaurants/' . date('Y-m-d', time()) . '/' . $request->name;
+            $path = 'restaurants/' . date('Y-m-d', time());
             $fileName = $this->uploadFile($uploadFile, $path);
             $restaurant->image_path = $fileName;
+        }
+        if (!empty($request->file('logo_path'))) {
+            $uploadFile = $request->file('logo_path');
+            $path = 'restaurants/' . date('Y-m-d', time());
+            $fileName = $this->uploadFile($uploadFile, $path);
+            $restaurant->logo_path = $fileName;
         }
         $restaurant->name = $request->name;
         $restaurant->phone = $request->phone;

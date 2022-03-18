@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Owner\TableRequest;
+use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\Table;
 use Illuminate\Http\JsonResponse;
@@ -24,11 +25,13 @@ class TableController extends Controller
             $per_page = (int) $request->per_page;
         }
         $restaurant = Restaurant::query()->where('user_id', Auth::id())->firstOrFail();
-        $tables = Table::query()->orderBy('index')
+        $tables = Table::query()
+            ->with('orders')
             ->where('restaurant_id', $restaurant->id)
             ->when(isset($request->name), function ($q) use ($request) {
                 return $q->where('index', $request->name);
             })
+            ->orderBy('index')
             ->paginate($per_page);
         try {
             return response()->json([
@@ -53,9 +56,10 @@ class TableController extends Controller
         $count = $request->count??1;
         for ($i = 0; $i <= $count; $i++) {
             $highest = Table::query()->orderByDesc('index')->first();
+            $restaurant = Restaurant::query()->where('user_id', Auth::id())->firstOrFail();
             Table::query()->create(
                 [
-                    'restaurant_id' => $request->restaurant_id,
+                    'restaurant_id' => $restaurant->id,
                     'set_num' => $request->set_num,
                     'price' => $request->price,
                     'floor' => $request->floor,
@@ -114,5 +118,26 @@ class TableController extends Controller
     {
         Table::query()->findOrFail($id)->delete();
         return true;
+    }
+
+    public function isBooked(Request $request, int $id)
+    {
+        $from = (!empty($request->book_from))? date('Y-m-d H:i:s', strtotime($request->book_from)): null;
+        $to = (!empty($request->book_to))? date('Y-m-d H:i:s', strtotime($request->book_to)): null;
+
+        $table = Order::query()
+            ->where('table_id', $id)
+            ->when($from, function ($q) use ($from) {
+                $q->where('book_from', '<=', $from);
+            })
+            ->when($to, function ($q) use ($to) {
+                $q->where('book_to', '<=', $to);
+            })
+            ->get();
+        return response()->json(
+            [
+                'data' => $table
+            ]
+        );
     }
 }

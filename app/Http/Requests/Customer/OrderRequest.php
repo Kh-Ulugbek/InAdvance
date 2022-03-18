@@ -5,16 +5,15 @@ namespace App\Http\Requests\Customer;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rule;
 
-class FavouriteRequest extends FormRequest
+class OrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -24,10 +23,14 @@ class FavouriteRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'meal_id' => ['required', 'exists:App\Models\Meal,id']
+            'restaurant_id' => ['required', 'exists:App\Models\Restaurant,id'],
+            'table_id' => ['required', 'exists:App\Models\Table,id'],
+            'book_from' => 'required',
+            'book_to' => 'required',
+            'guest_count' => 'required|numeric',
         ];
     }
 

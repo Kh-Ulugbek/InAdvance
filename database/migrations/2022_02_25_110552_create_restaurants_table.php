@@ -19,6 +19,7 @@ class CreateRestaurantsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users');
             $table->string('image_path');
+            $table->string('logo_path')->nullable();
             $table->string('name');
             $table->bigInteger('phone');
             $table->double('map_ln')->nullable();

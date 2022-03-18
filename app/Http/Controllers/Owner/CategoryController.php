@@ -55,7 +55,9 @@ class CategoryController extends Controller
             $category->description_en = $request->description_en;
             $category->image_path = $file_path;
             $category->save();
-            return redirect()->route('categories.index');
+            return response()->json([
+                'data' => $category
+            ], 200);
         } catch (\Exception $e) {
             return redirect()->back();
         }

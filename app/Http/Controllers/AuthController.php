@@ -83,4 +83,22 @@ class AuthController extends Controller
             'token' => $success['token']
         ]);
     }
+
+    public function profile(Request $request)
+    {
+        $request->validate(
+            [
+                'image_path' => 'required|mimes:jpg,jpeg,png'
+            ]
+        );
+        $uploadFile = $request->file('image_path');
+        $path = 'restaurants/' . date('Y-m-d', time());
+        $fileName = $this->uploadFile($uploadFile, $path);
+        $user = Auth::user();
+        $user->image_path = $fileName;
+        $user->save();
+        return response()->json([
+            'data' => $user
+        ]);
+    }
 }
