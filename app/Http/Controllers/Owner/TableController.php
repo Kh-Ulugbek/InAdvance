@@ -55,8 +55,8 @@ class TableController extends Controller
     {
         $count = $request->count??1;
         for ($i = 0; $i <= $count; $i++) {
-            $highest = Table::query()->orderByDesc('index')->first();
             $restaurant = Restaurant::query()->where('user_id', Auth::id())->firstOrFail();
+            $highest = Table::query()->where('restaurant_id', $restaurant->id)->orderByDesc('index')->first();
             Table::query()->create(
                 [
                     'restaurant_id' => $restaurant->id,
@@ -67,7 +67,7 @@ class TableController extends Controller
                 ]
             );
         }
-        $tables = Table::query()->where('restaurant_id', $request->restaurant_id)->get();
+        $tables = Table::query()->where('restaurant_id', $restaurant->id)->get();
         return response()->json([
             'data' => $tables
         ], 200);

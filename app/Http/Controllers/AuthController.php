@@ -88,7 +88,9 @@ class AuthController extends Controller
     {
         $request->validate(
             [
-                'image_path' => 'required|mimes:jpg,jpeg,png'
+                'image_path' => 'mimes:jpg,jpeg,png',
+                'full_name' => 'min:5|max:100',
+                'phone' => 'numeric',
             ]
         );
         $uploadFile = $request->file('image_path');
@@ -96,6 +98,8 @@ class AuthController extends Controller
         $fileName = $this->uploadFile($uploadFile, $path);
         $user = Auth::user();
         $user->image_path = $fileName;
+        $user->full_name = $request->full_name;
+        $user->phone = $request->phone;
         $user->save();
         return response()->json([
             'data' => $user

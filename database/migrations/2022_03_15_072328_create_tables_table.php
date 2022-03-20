@@ -20,7 +20,7 @@ class CreateTablesTable extends Migration
             $table->integer('set_num');
             $table->integer('price')->nullable();
             $table->integer('floor');
-            $table->integer('index')->unique();
+            $table->integer('index');
             $table->timestamps();
         });
     }
