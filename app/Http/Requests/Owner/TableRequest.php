@@ -29,7 +29,7 @@ class TableRequest extends FormRequest
         $index = '';
         if ($this->method() == 'PUT' or $this->method() == 'PATCH')
         {
-            $index = ['required', Rule::unique('tables', 'index')->ignore($this->table)];
+            $index = ['required'];
         }
         return [
             'set_num' => 'required',
