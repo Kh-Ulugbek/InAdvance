@@ -25,9 +25,7 @@ class RestaurantController extends Controller
         }
         $restaurants = Restaurant::query()->orderByDesc('id')
             ->when(isset($request->name), function ($q) use ($request) {
-                return $q->where('name_uz', 'like', '%' . $request->name . '%')
-                    ->orWhere('name_ru', 'like', '%' . $request->name . '%')
-                    ->orWhere('name_en', 'like', '%' . $request->name . '%');
+                return $q->where('name', 'like', '%' . $request->name . '%');
             })
             ->paginate($per_page);
         try {

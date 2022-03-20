@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/myScript', [CategoryController::class, 'myScript']);
+
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::middleware(['auth','admin'])->group(function () {

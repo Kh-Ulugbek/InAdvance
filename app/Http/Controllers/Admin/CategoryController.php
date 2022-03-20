@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -114,4 +115,35 @@ class CategoryController extends Controller
             return redirect()->back();
 //        }
     }
+
+//    public function myScript()
+//    {
+//        $data = DB::table('soliq3')->where('status', 0)
+//            ->take(500)
+//            ->get();
+//
+//        foreach ($data as $item) {
+//            $need = DB::table('soliq2')->where('inn', $item->inn)->first();
+//            if ($need) {
+//                DB::table('soliq2')->where('inn', $item->inn)->update(
+//                    [
+//                        'company_viruchka' => $item->company_viruchka
+//                    ]
+//                );
+//                DB::table('soliq3')->where('inn', $item->inn)->update(
+//                    [
+//                        'status' => 1
+//                    ]
+//                );
+//            }
+//            else {
+//                DB::table('soliq3')->where('inn', $item->inn)->update(
+//                    [
+//                        'status' => 2
+//                    ]
+//                );
+//            }
+//        }
+//        return $data->count();
+//    }
 }
