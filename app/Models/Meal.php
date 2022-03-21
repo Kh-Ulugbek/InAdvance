@@ -11,4 +11,5 @@ class Meal extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $hidden = ['deleted_at', 'updated_at'];
 }
