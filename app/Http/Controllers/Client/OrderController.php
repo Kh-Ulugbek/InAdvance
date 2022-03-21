@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $orders = Order::query()
-            ->with('table', 'restaurant')
+            ->with('table', 'restaurant', 'meals')
             ->where('user_id', Auth::id())
             ->get();
         return response()->json([

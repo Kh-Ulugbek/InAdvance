@@ -21,4 +21,9 @@ class Order extends Model
     {
         return $this->belongsTo(Table::class, 'table_id', 'id');
     }
+
+    public function meals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MealOrder::class, 'order_id', 'id');
+    }
 }
