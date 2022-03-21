@@ -31,6 +31,9 @@ class OrderRequest extends FormRequest
             'book_from' => 'required',
             'book_to' => 'required',
             'guest_count' => 'required|numeric',
+            'meals' => 'required|array',
+            'meals.*.meal_id' => 'required|numeric',
+            'meals.*.count' => 'numeric',
         ];
     }
 
