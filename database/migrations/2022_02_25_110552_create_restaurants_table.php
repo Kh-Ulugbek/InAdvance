@@ -27,6 +27,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('open_time');
             $table->string('close_time');
             $table->string('bank_number')->nullable();
+            $table->tinyInteger('type')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

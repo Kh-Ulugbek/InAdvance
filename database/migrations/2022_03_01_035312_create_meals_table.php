@@ -30,7 +30,7 @@ class CreateMealsTable extends Migration
             $table->text('description_uz');
             $table->text('description_ru');
             $table->text('description_en')->nullable();
-            $table->double('price');
+            $table->string('price');
             $table->string('image_path');
             $table->softDeletes();
             $table->timestamps();

@@ -20,10 +20,6 @@ class TableController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $per_page = 10;
-        if (isset($request->per_page)) {
-            $per_page = (int) $request->per_page;
-        }
         $restaurant = Restaurant::query()->where('user_id', Auth::id())->firstOrFail();
         $tables = Table::query()
             ->with('orders')
@@ -32,7 +28,7 @@ class TableController extends Controller
                 return $q->where('index', $request->name);
             })
             ->orderBy('index')
-            ->paginate($per_page);
+            ->get();
         try {
             return response()->json([
                 'data' => $tables

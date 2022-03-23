@@ -63,13 +63,14 @@ class RestaurantController extends Controller
         $restaurant->user_id = Auth::id();
         $restaurant->image_path = $fileName;
         $restaurant->logo_path = $logoName;
-        $restaurant->name = $request->name;
         $restaurant->phone = $request->phone;
+        $restaurant->name = $request->name;
         $restaurant->map_ln = $request->map_ln;
         $restaurant->map_lt = $request->map_lt;
         $restaurant->open_time = $request->open_time;
-        $restaurant->close_time = $request->close_time;
         $restaurant->bank_number = $request->bank_number;
+        $restaurant->close_time = $request->close_time;
+        $restaurant->type = $request->type;
         $restaurant->save();
         return response()->json([
             'data' => $restaurant
@@ -126,6 +127,7 @@ class RestaurantController extends Controller
         $restaurant->open_time = $request->open_time;
         $restaurant->close_time = $request->close_time;
         $restaurant->bank_number = $request->bank_number;
+        $restaurant->type = $request->type;
         $restaurant->save();
         return response()->json([
             'data' => $restaurant
