@@ -17,23 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/myScript', [CategoryController::class, 'myScript']);
+////Route::get('/myScript', [CategoryController::class, 'myScript']);
+//
+//Route::get('login', [AuthController::class, 'login'])->name('login');
+//Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
+//Route::middleware(['auth','admin'])->group(function () {
+//    Route::get('/', function () {
+//        return redirect()->route('categories.index');
+//    });
+//    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+////    Route::get('/admin-panel', [MainController::class, 'index'])->name('adminPanel');
+//    Route::resource('/categories', CategoryController::class);
+//
+//    Route::resource('/restaurants', RestaurantController::class);
+//
+//    Route::resource('/meals', MealController::class);
+//});
 
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
-Route::middleware(['auth','admin'])->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('categories.index');
-    });
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-//    Route::get('/admin-panel', [MainController::class, 'index'])->name('adminPanel');
-    Route::resource('/categories', CategoryController::class);
-
-    Route::resource('/restaurants', RestaurantController::class);
-
-    Route::resource('/meals', MealController::class);
-});
-
-//Route::get('{any}', function() {
-//    return redirect('/');
-//})->where('any', '.*');
+Route::any('{any}', function() {
+    return abort(404);
+})->where('any', '.*');
