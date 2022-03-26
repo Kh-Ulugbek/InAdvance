@@ -85,7 +85,7 @@ class MealController extends Controller
         $meal->price = $request->price;
         $meal->save();
         return response()->json([
-            'data' => gettype($meal->user_id)
+            'data' => $meal->user_id
         ], 200);
     }
 
