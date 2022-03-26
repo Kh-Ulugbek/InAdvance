@@ -24,13 +24,11 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        $image_path = 'required';
         if ($this->method() == 'PUT' or $this->method() == 'PATCH')
         {
             $image_path = '';
         }
         return [
-            'image_path' => $image_path,
             'name_uz' => 'required',
             'name_ru' => 'required',
             'name_en' => 'required'

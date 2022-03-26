@@ -75,7 +75,7 @@ class MealController extends Controller
             $fileName = $this->uploadFile($uploadFile, $path);
             $meal->image_path = $fileName;
         }
-        $meal->category_id = $request->category_id;
+        $meal->category_id = (int) $request->category_id;
         $meal->name_uz = $request->name_uz;
         $meal->name_ru = $request->name_ru;
         $meal->name_en = $request->name_en;
@@ -83,7 +83,8 @@ class MealController extends Controller
         $meal->description_ru = $request->description_ru;
         $meal->description_en = $request->description_en;
         $meal->price = $request->price;
-        $meal->save();
+        $meal->user_id = Auth::id();
+        $meal->update();
         return response()->json([
             'data' => $meal
         ], 200);

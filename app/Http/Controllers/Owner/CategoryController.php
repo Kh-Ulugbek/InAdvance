@@ -45,15 +45,15 @@ class CategoryController extends Controller
     {
         try {
             $category = new Category();
-            $file = $request->file('image_path');
-            $file_path = "/storage/" . Storage::disk('public')->put("categories", $file);
+//            $file = $request->file('image_path');
+//            $file_path = "/storage/" . Storage::disk('public')->put("categories", $file);
             $category->name_uz = $request->name_uz;
             $category->name_ru = $request->name_ru;
             $category->name_en = $request->name_en;
             $category->description_uz = $request->description_uz;
             $category->description_ru = $request->description_ru;
             $category->description_en = $request->description_en;
-            $category->image_path = $file_path;
+//            $category->image_path = $file_path;
             $category->save();
             return response()->json([
                 'data' => $category
