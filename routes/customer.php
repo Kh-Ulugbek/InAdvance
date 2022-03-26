@@ -22,20 +22,18 @@ use \App\Http\Controllers\AuthController;
 |
 */
 
-//Route::middleware(['checkToken', 'auth:api'])->group(function () {
-//    Route::middleware('scope:customer')->group(function () {
-//        Route::post('profile', [AuthController::class, 'profile'])->name('user.profile');
-//        Route::resource('favourite', FavouriteController::class)->only('index', 'store');
-//        Route::resource('restaurant', RestaurantController::class)->only('index', 'show');
-//        Route::resource('category', CategoryController::class)->only('index', 'show');
-//        Route::resource('meal', MealController::class)->only('index', 'show');
-//        Route::resource('table', TableController::class)->only('index', 'show');
-//        Route::post('table/is-booked/{table_id}', [TableController::class, 'isBooked'])->name('table.isBooked');
-//        Route::resource('order', OrderController::class)->only('index', 'store');
-//    });
-//});
+Route::middleware(['checkToken', 'auth:api'])->group(function () {
+    Route::middleware('scope:customer')->group(function () {
+        Route::post('profile', [AuthController::class, 'profile'])->name('user.profile');
+        Route::resource('favourite', FavouriteController::class)->only('index', 'store');
+        Route::resource('restaurant', RestaurantController::class)->only('index', 'show');
+        Route::resource('category', CategoryController::class)->only('index', 'show');
+        Route::resource('meal', MealController::class)->only('index', 'show');
+        Route::resource('table', TableController::class)->only('index', 'show');
+        Route::post('table/is-booked/{table_id}', [TableController::class, 'isBooked'])->name('table.isBooked');
+        Route::resource('order', OrderController::class)->only('index', 'store');
+    });
+});
 
-Route::any('{any}', function() {
-    return abort(404);
-})->where('any', '.*');
+
 

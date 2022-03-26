@@ -17,19 +17,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-//
-////Auth routes
-//Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
-//Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
-//Route::get('stock', [StockController::class, 'index']);
-//
-//Route::middleware(['checkToken', 'auth:api'])->group(function () {
-//    //
-//});
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-Route::any('{any}', function() {
-    return abort(404);
-})->where('any', '.*');
+//Auth routes
+Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::post('register', [\App\Http\Controllers\AuthController::class, 'register']);
+Route::get('stock', [StockController::class, 'index']);
+
+Route::middleware(['checkToken', 'auth:api'])->group(function () {
+    //
+});
+
