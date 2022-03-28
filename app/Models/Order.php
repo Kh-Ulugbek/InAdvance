@@ -11,6 +11,11 @@ class Order extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        "user_id" => "integer",
+        "restaurant_id" => "integer",
+        "table_id" => "integer",
+    ];
 
     public function restaurant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

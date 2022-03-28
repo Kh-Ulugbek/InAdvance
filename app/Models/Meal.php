@@ -12,4 +12,9 @@ class Meal extends Model
 
     protected $guarded = ['id'];
     protected $hidden = ['deleted_at', 'updated_at'];
+    protected $casts = [
+        "user_id" => "integer",
+        "restaurant_id" => "integer",
+        "category_id" => "integer",
+    ];
 }

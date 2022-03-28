@@ -11,6 +11,9 @@ class Restaurant extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        "user_id" => "integer"
+    ];
 
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

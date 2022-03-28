@@ -10,6 +10,9 @@ class Table extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $casts = [
+        "restaurant_id" => "integer"
+    ];
 
     public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
